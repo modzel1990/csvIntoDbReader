@@ -1,0 +1,31 @@
+How does it work:
+The whole code can be run from the terminal. We can use following command.
+php csvCommandLine.php {arg1} {arg2} {arg3} {arg4} {arg5} {arg6}
+
+When we provide arguments we can skip {} (brackets), arguments are as follow:
+- arg1 = filename including extension (example: stock.csv)
+- arg2 = hostname
+- arg3 = db username
+- arg4 = db password
+- arg5 = db name
+- arg6 = test (optional to run without inserts)
+
+Note: I did not do any work in relation to paths to the file, 
+therefore it is best to place csv file in the same directory as all script files.
+
+Questions:
+1. Whether the data is correctly formatted for CSV 
+2. Whether the data is correctly formatted for use with a database 
+3. Potential data encoding issues or line termination problems 
+4. Manual interference with the file which may invalidate some entries
+
+Answers:
+1. Validation, which was described below in point number 4, we would need to validate whether we've got correct datetypes and formatted
+   in columns and rows.
+2. To make sure that we do not insert wrong data into the db we can use prepared statements and sanitization. (Done both within the code)
+3. Again, its all about sanitization or preg_replace (or similar) to get rid of specific patterns.
+4. This part is a bit more complicated. There are two ways that come to my mind to make sure that we've got it working:
+   - We could check provided data based on column names (headers), whether they are in correct order, or even without order but
+   with correct names such as "Product Code" or "Product Desc".
+   - We could also make sure to check whether each column data is in correct format and datatype, as for example, we could check
+   if Stock column is_int or is_numeric, this could be done within validation
